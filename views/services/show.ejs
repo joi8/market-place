@@ -1,0 +1,48 @@
+<%- include('../partials/header') %>
+    <h1><%= service.title %></h1>
+    <p><%= service.description %></p>
+    <p>Provider: <%= service.provider.name %></p>
+    <% if (user && service.provider._id.toString() === user._id.toString()) { %>
+        <a href="/services/<%= service._id %>/edit">Edit</a>
+        <form action="/services/<%= service._id %>/delete" method="POST" style="display:inline;">
+            <button type="submit">Delete</button>
+        </form>
+    <% } %>
+    <hr>
+    <h3>Reviews</h3>
+    <% if (service.reviews.length > 0) { %>
+        <ul>
+            <% service.reviews.forEach(review => { %>
+                <li>
+                    <strong><%= review.user.name %></strong> - <%= review.rating %>/5
+                    <p><%= review.comment %></p>
+                </li>
+            <% }); %>
+        </ul>
+    <% } else { %>
+        <p>No reviews yet.</p>
+    <% } %>
+
+    <% if (isAuthenticated) { %>
+        <form action="/services/<%= service._id %>/reviews" method="POST">
+            <h3>Add a Review</h3>
+            <div>
+                <label for="rating">Rating</label>
+                <select name="rating" id="rating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            <div>
+                <label for="comment">Comment</label>
+                <textarea name="comment" id="comment" rows="3"></textarea>
+            </div>
+            <button type="submit">Submit Review</button>
+        </form>
+    <% } %>
+
+    <a href="/services">Back to Services</a>
+<%- include('../partials/footer') %>

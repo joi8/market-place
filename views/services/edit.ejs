@@ -1,0 +1,14 @@
+<%- include('../partials/header') %>
+    <h1>Edit <%= service.title %></h1>
+    <form action="/services/<%= service._id %>/edit" method="POST">
+        <div>
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" value="<%= service.title %>" required>
+        </div>
+        <div>
+            <label for="description">Description</label>
+            <textarea id="description" name="description" required><%= service.description %></textarea>
+        </div>
+        <button type="submit">Update Service</button>
+    </form>
+<%- include('../partials/footer') %>

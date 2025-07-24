@@ -1,0 +1,17 @@
+<%- include('../partials/header') %>
+    <h1>All Services</h1>
+    <a href="/services/new">Add New Service</a>
+    <form action="/services" method="GET">
+        <input type="text" name="search" placeholder="Search services...">
+        <button type="submit">Search</button>
+    </form>
+    <div class="services">
+        <% services.forEach(service => { %>
+            <div class="service">
+                <h2><a href="/services/<%= service._id %>"><%= service.title %></a></h2>
+                <p><%= service.description %></p>
+                <p>Provided by: <%= service.provider.name %></p>
+            </div>
+        <% }); %>
+    </div>
+<%- include('../partials/footer') %>
